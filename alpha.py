@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 
 # Read data
 df = pd.read_csv('ussr.csv')
-df.columns = ['rank_89', 'city', 'pop_89', 'pop_17', 'latest_year', 'rank_17', 
-    'rank_change', 'ssr', 'current_name', 'record']
+df.columns = ['record', 'rank_89', 'city', 'pop_89', 'pop_17', 'latest_year', 'rank_17', 
+    'rank_change', 'ssr', 'current_name', 'lat', 'lon']
+df['pop_change'] = df['pop_17'] - df['pop_89']
 
 # Take log
 cols_to_log = ['rank_89', 'rank_17', 'pop_89', 'pop_17']
@@ -36,6 +37,7 @@ for ssr in df['ssr'].unique().tolist():
 
 # Make plot
 # df.plot.scatter(x='log_resid_89', y='log_pop_change')
-sns.regplot(x='resid_89', y='log_pop_change_adj', data=df)
+sns.regplot(x='logflip_resid_89', y='log_pop_change_adj', data=df)
+# sns.regplot(x='resid_89', y='log_pop_change_adj', data=df)
 plt.savefig('test2.png')
 plt.close()
